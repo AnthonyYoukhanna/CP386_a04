@@ -73,6 +73,8 @@ void printState();
 void fillAlloc();
 void* threadRun(void* t);
 void createSafe();
+void fillNeed();
+
 
 //inits of structs
 Threads* threads;
