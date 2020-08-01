@@ -40,7 +40,17 @@ void fillNeed(); //Franchesco
 ```
 ## Features
 
+Error from incorrect input of request command will hint that either
+
+    - the thread does not exist
+    - the thread requesting does not have enough resources inputted into the command
+    - the thread request would be unsafe
+
 ## Tests
+
+Possible Test:
+
+
 
 ## Code Example
 
