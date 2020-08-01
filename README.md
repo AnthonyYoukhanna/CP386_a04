@@ -54,6 +54,9 @@ Possible Test Inputs:
     RQ 1 2 2 2 2
     RQ 2 0 2 0 3
     *
+    RL 2 0 2 0 3
+    *
+    RQ 2 0 2 0 3
     Run
 
 ## Code Example
@@ -62,11 +65,11 @@ Possible Test Inputs:
 ## Authors
 
 Franchesco Livado, @FranchescoLivado
-Anthony Youkhanna, @Anthony Youkhanna
+Anthony Youkhanna, @AnthonyYoukhanna
 
 ## Credits
 Franchesco Livado, @FranchescoLivado Contributor
-Anthony Youkhanna, @Anthony Youkhanna Contributor
+Anthony Youkhanna, @AnthonyYoukhanna Contributor
 
 ## License
 This is free and unencumbered software released into the public domain.
