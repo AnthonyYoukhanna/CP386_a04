@@ -43,14 +43,25 @@ typedef struct need{
 	int needArray[5][4];
 } Need;
 
-
+typedef struct thread{
+    int numOfReq;
+    int tNum;
+    //pthread_t handle;
+} Threads;
 
 void readFile(char* fileName, Max *max);
 void commandRun(char *c);
 int resourceReq(int *tNum, int *r1, int *r2, int *r3, int *r4);
 void resourceRelease(int *tNum, int *r1, int *r2, int *r3, int *r4);
-int safety();
 void printState();
+void fillAlloc();
+
+//inits of structs
+Threads* threads;
+Max max;
+Available available;
+Alloc allocated;
+Need need;
 
 int main(int argc, char *argv[])
 {
@@ -61,10 +72,9 @@ int main(int argc, char *argv[])
 		return -1;
 	}
 
-
+    threads = (Threads*) malloc(sizeof(Threads)*rows);
 	
-	Max max;
-	Available available;
+	
 	//initialize Available datastruct
 	int c = 0;
 	printf("Number of Customers: %d \n", rows);
@@ -77,10 +87,12 @@ int main(int argc, char *argv[])
 	}
 	printf("\n");
 
-	//initialize Maximum datastruct
+	//initialize Maximum datastruct and thread attributes
 	readFile("sample4_in.txt", &max);
 	printf("Maximum resources from file: \n");
 	for (int i = 0; i < rows; i++){
+        threads[i].tNum = 0;
+        threads[i].numOfReq = 0;
 		for (int j = 0; j < columns; j++){
 			printf("%d ", max.mArray[i][j]);
 		}
@@ -95,16 +107,23 @@ int main(int argc, char *argv[])
 	strncpy(cmd, command, 1);
 	//runcmd is string for command: Run
 	strncpy(runcmd, command, 3);
-	
-	if (strcmp(command, "*") != 0 && strcmp(command, "Run") != 0){
-		scanf("%d %d %d %d %d", &threadNum, &r1, &r2, &r3, &r4);
-		commandRun(command);
+	while (strcmp(command, "Run") != 0){
+		if (strcmp(command, "*") != 0 && strcmp(command, "Run") != 0){
+			scanf("%d %d %d %d %d", &threadNum, &r1, &r2, &r3, &r4);
+			printf("command entered\n");
+			commandRun(command);
+			
+		}
+		else if (strcmp(cmd, "*") == 0){
+			commandRun(cmd);
+		}
+
+		printf("Enter a command : ");
+		scanf("%s", command);
 	}
-	else if (strcmp(cmd, "*") == 0){
-		commandRun(cmd);
-	}
-	else if(strcmp(runcmd, "Run") == 0){
-		commandRun(runcmd);
+
+	if(strcmp(runcmd, "Run") == 0){
+			commandRun(runcmd);
 	}
 	
 
@@ -150,8 +169,35 @@ void readFile(char* fileName, Max *max)
 
 //fills Allocation
 int resourceReq(int *tNum, int *r1, int *r2, int *r3, int *r4){
-    
-    return 0;
+    //check if thread has been already requested
+    if (threads[*tNum].numOfReq == 0){
+        //check if available <= (max - request) AKA Safety algorithm or if (max - request) is negative
+        for(int i = 0; i < columns; i++){
+		
+            if (i == 0 && ((max.mArray[*tNum][i] - *r1) <= -1 || (max.mArray[*tNum][i] - *r1) > available.avArray[i])){
+                printf("i: %d \n(max.mArray[*tNum][i] - *r1): %d - %d \n", i, max.mArray[*tNum][i], *r1);
+				return -1;					
+            }
+            if (i == 1 && ((max.mArray[*tNum][i] - *r2) > available.avArray[i] || (max.mArray[*tNum][i] - *r2) <= -1)){
+                printf("i: %d \n(max.mArray[*tNum][i] - *r2): %d - %d \n", i, max.mArray[*tNum][i], *r2);
+				return -1;				
+            }
+            if (i== 2 && ((max.mArray[*tNum][i] - *r3) > available.avArray[i] || (max.mArray[*tNum][i] - *r3) <= -1)){
+				printf("i: %d \n(max.mArray[*tNum][i] - *r3): %d - %d \n", i, max.mArray[*tNum][i], *r3);
+				return -1;
+            }
+            if (i == 3 && ((max.mArray[*tNum][i] - *r4) > available.avArray[i] || (max.mArray[*tNum][i] - *r4) <= -1)){
+                printf("i: %d \n(max.mArray[*tNum][i] - *r4): %d - %d \n", i, max.mArray[*tNum][i], *r4);
+				return -1;
+            }
+        }
+		threads[*tNum].numOfReq ++;
+        return 0;
+    }
+    else{
+		
+        return -1;
+    }
 
 }
 
@@ -171,14 +217,57 @@ void resourceRelease(int *tNum, int *r1, int *r2, int *r3, int *r4){
 // 4.if finish[i] == true for all i, then system is safe. else state is unsafe.
 
 
-//checks if resourceReq can be satisfied or denied
-int safety(){
-	return 0;
+void printState(){
+
+	printf("Maximum: \n");
+	for (int i = 0; i < rows; i++){
+		for (int j = 0; j < columns; j++){
+			printf("%d ", max.mArray[i][j]);
+		}
+		printf("\n");
+	}
+	printf("\nAvailable: \n");
+	for (int i = 0; i < columns; i++){
+		printf("%d ", available.avArray[i]);
+	}
+	printf("\n");
+	printf("\nAllocation: \n");
+	for (int i = 0; i < rows; i++){
+		for (int j = 0; j < columns; j++){
+			printf("%d ", allocated.allocArray[i][j]);
+		}
+		printf("\n");
+	}
+	printf("\nNeed: \n");
+	for (int i = 0; i < rows; i++){
+		for (int j = 0; j < columns; j++){
+			printf("%d ", need.needArray[i][j]);
+		}
+		printf("\n");
+	}
 
 }
 
-void printState(){
-
+void fillAlloc(){
+    printf("Allocated array @thread %d: ", threadNum);
+    for (int i = 0; i < columns; i++){
+        if (i == 0){
+            allocated.allocArray[threadNum][i] = r1;
+            printf("%d ",allocated.allocArray[threadNum][i]);
+        }
+        if (i == 1){
+            allocated.allocArray[threadNum][i] = r2;
+            printf("%d ",allocated.allocArray[threadNum][i]);
+        }
+        if (i == 2){
+            allocated.allocArray[threadNum][i] = r3;
+            printf("%d ",allocated.allocArray[threadNum][i]);
+        }
+        if (i == 3){
+            allocated.allocArray[threadNum][i] = r4;
+            printf("%d ",allocated.allocArray[threadNum][i]);
+        }
+    }
 }
 
 void commandRun(char *c){
@@ -186,13 +275,21 @@ void commandRun(char *c){
 
 	//state - * output current state of data structs
 	if (strcmp(c, "*") == 0){
+		
 		printState();
 		
 	}
 	//request
 	else if (strcmp(c, "RQ") == 0){
-		resourceReq(&threadNum, &r1, &r2, &r3, &r4);
-		
+		int b = resourceReq(&threadNum, &r1, &r2, &r3, &r4);
+		if (b == 0){
+            //fill alloc array then print
+            fillAlloc();
+            printf("Request satisfied \n");
+        }
+        else{
+            printf("Request denied for one of the following reasons:\n	state would be unsafe\n	thread has already been allocated resources\n	thread does not exist\n");
+        }
 	}
 	//release
 	else if (strcmp(c, "RL") == 0){
