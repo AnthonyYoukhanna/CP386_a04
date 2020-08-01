@@ -9,7 +9,7 @@ Open on Linux CMD line
 
 Use Makefile command "make" for compilation and/or "make warnings_OK"
 
-Run on linux using "./Assignment X X X X" 
+Run on linux using "./Assignment_4 X X X X" 
 
   - X's will be the max resource integer values that the user will input
 
