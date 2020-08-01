@@ -1,21 +1,21 @@
 # CP386_a04
 Assignment repository for Operating System assignment 4
-##Motivation
+## Motivation
 
-##Installations
+## Installations
 
-##Screenshots
+## Screenshots
 
-##Individial Contribution
+## Individial Contribution
 
-##Features
+## Features
 
-##Tests
+## Tests
 
-##Code Example
+## Code Example
 
-#Authors
+## Authors
 
-##Credits
+## Credits
 
-##License
+## License
