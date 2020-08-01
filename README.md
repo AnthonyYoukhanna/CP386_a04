@@ -26,7 +26,18 @@ Run on linux using "./Assignment X X X X"
 ![Screenshot5](/pics/fifth.png "Run command Part 2")
 
 ## Individial Contribution
-
+```c
+int main(int argc, char *argv[]); //Franchesco/Anthony
+void readFile(char* fileName, Max *max); //Franchesco
+void commandRun(char *c); //Franchesco
+int resourceReq(int *tNum, int *r1, int *r2, int *r3, int *r4); //Franchesco/Anthony
+int resourceRelease(int *tNum, int *r1, int *r2, int *r3, int *r4); //Anthony
+void printState(); //Franchesco
+void fillAlloc(); //Franchesco
+void* threadRun(void* t); //Anthony
+void createSafe(); //Anthony
+void fillNeed(); //Franchesco
+```
 ## Features
 
 ## Tests
