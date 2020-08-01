@@ -64,12 +64,12 @@ Possible Test Inputs:
 
 ## Authors
 
-Franchesco Livado, @FranchescoLivado
-Anthony Youkhanna, @AnthonyYoukhanna
+Franchesco Livado, [@FranchescoLivado](github.com/FranchescoLivado)
+Anthony Youkhanna, [@AnthonyYoukhanna](github.com/AnthonyYoukhanna)
 
 ## Credits
-Franchesco Livado, @FranchescoLivado Contributor
-Anthony Youkhanna, @AnthonyYoukhanna Contributor
+Franchesco Livado, [@FranchescoLivado](github.com/FranchescoLivado) Contributor
+Anthony Youkhanna, [@AnthonyYoukhanna](github.com/AnthonyYoukhanna) Contributor
 
 ## License
 This is free and unencumbered software released into the public domain.
