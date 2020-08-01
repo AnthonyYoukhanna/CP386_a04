@@ -3,10 +3,18 @@
 #include<stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
 //constants
 int rows = 5;
 int columns = 4;
-
+char command[100];
+char cmd[2];
+char runcmd[3];
+int threadNum;
+int r1;
+int r2;
+int r3;
+int r4;	
 
 //list of commands
 
@@ -33,14 +41,16 @@ typedef struct allocated
 
 typedef struct need{
 	int needArray[5][4];
-
 } Need;
 
 
-	
 
 void readFile(char* fileName, Max *max);
-
+void commandRun(char *c);
+int resourceReq(int *tNum, int *r1, int *r2, int *r3, int *r4);
+void resourceRelease(int *tNum, int *r1, int *r2, int *r3, int *r4);
+int safety();
+void printState();
 
 int main(int argc, char *argv[])
 {
@@ -51,11 +61,14 @@ int main(int argc, char *argv[])
 		return -1;
 	}
 
+
 	
 	Max max;
 	Available available;
 	//initialize Available datastruct
 	int c = 0;
+	printf("Number of Customers: %d \n", rows);
+	printf("Currently Available resources: ");
 	for (int i = 1; i < argc; i++){
 		available.avArray[c] = atoi(argv[i]);
 		printf("%d ", atoi(argv[i]));
@@ -66,7 +79,7 @@ int main(int argc, char *argv[])
 
 	//initialize Maximum datastruct
 	readFile("sample4_in.txt", &max);
-
+	printf("Maximum resources from file: \n");
 	for (int i = 0; i < rows; i++){
 		for (int j = 0; j < columns; j++){
 			printf("%d ", max.mArray[i][j]);
@@ -74,6 +87,26 @@ int main(int argc, char *argv[])
 		printf("\n");
 	}
 
+	//ask for command input
+	printf("Enter a command : ");
+	//command is string for commands: RQ, RL
+	scanf("%s", command);
+	//cmd is string for command: *
+	strncpy(cmd, command, 1);
+	//runcmd is string for command: Run
+	strncpy(runcmd, command, 3);
+	
+	if (strcmp(command, "*") != 0 && strcmp(command, "Run") != 0){
+		scanf("%d %d %d %d %d", &threadNum, &r1, &r2, &r3, &r4);
+		commandRun(command);
+	}
+	else if (strcmp(cmd, "*") == 0){
+		commandRun(cmd);
+	}
+	else if(strcmp(runcmd, "Run") == 0){
+		commandRun(runcmd);
+	}
+	
 
 }
 
@@ -116,20 +149,13 @@ void readFile(char* fileName, Max *max)
 
 
 //fills Allocation
-int resourceReq(){
-	//if request[i] <= need[i] then
-    //    if request[i] <= available then
-    //        available = available - request[i]
-    //        allocation[i] = allocation[i] + request[i]
-    //        need[i] = need[i] - request[i]
-    //    else Thread[i] must wait since resource is not available
-    //else deny request 
+int resourceReq(int *tNum, int *r1, int *r2, int *r3, int *r4){
     
     return 0;
 
 }
 
-void resourceRelease(){
+void resourceRelease(int *tNum, int *r1, int *r2, int *r3, int *r4){
 
 }
 
@@ -144,28 +170,39 @@ void resourceRelease(){
 //   go to step 2
 // 4.if finish[i] == true for all i, then system is safe. else state is unsafe.
 
+
 //checks if resourceReq can be satisfied or denied
-// int safety(){
-// 	if(){
-//         return 0;
-//     }
+int safety(){
+	return 0;
 
-//     else(){
-//         return -1;
-//     }
+}
 
-// }
+void printState(){
 
-// void commandRun(char *argv[]){
+}
+
+void commandRun(char *c){
 
 
-// 	//state - * output current state of data structs
+	//state - * output current state of data structs
+	if (strcmp(c, "*") == 0){
+		printState();
+		
+	}
+	//request
+	else if (strcmp(c, "RQ") == 0){
+		resourceReq(&threadNum, &r1, &r2, &r3, &r4);
+		
+	}
+	//release
+	else if (strcmp(c, "RL") == 0){
+		resourceRelease(&threadNum, &r1, &r2, &r3, &r4);
+		
+	}
+	//run - implements safe sequence and runs threads
+	else if (strcmp(c, "Run") == 0){
+		
 
-// 	//request
+	}
 
-// 	//release
-
-// 	//run - implements safe saequence
-
-
-// }
+}
