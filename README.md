@@ -14,7 +14,7 @@ Open on Linux CMD
 
 ![Screenshot4](/pics/fourth.png "Run command Part 1")
 
-![Screenshot4](/pics/fifth.png "Run command Part 2")
+![Screenshot5](/pics/fifth.png "Run command Part 2")
 
 ## Individial Contribution
 
