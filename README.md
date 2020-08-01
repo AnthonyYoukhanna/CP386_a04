@@ -4,7 +4,16 @@ Assignment repository for Operating System assignment 4
 Completion of Assignment 4
 ## Installations
 Download the file from the repository
-Open on Linux CMD
+
+Open on Linux CMD line
+
+Use Makefile command "make" for compilation and/or "make warnings_OK"
+
+Run on linux using "./Assignment X X X X" 
+
+  - X's will be the max resource integer values that the user will input
+
+
 ## Screenshots
 ![Screenshot1](/pics/first.png "Program Start")
 
