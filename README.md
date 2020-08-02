@@ -68,11 +68,11 @@ Possible Test Inputs:
 
   - will release thread 2 of resources 0 2 0 3
 
-    *
+        *
 
   - will print states of all the data structures (Available, Max, Need, Allocated)
   
-    Run
+        Run
 
   - will run the threads accordingly using bankers algorithm
 
