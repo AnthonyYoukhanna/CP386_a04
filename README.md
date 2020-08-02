@@ -62,19 +62,19 @@ Possible Test Inputs:
 ## Code Example
     RQ 1 2 2 2 2
 
-  will request thread 1 for resources 2 2 2 2
+  - will request thread 1 for resources 2 2 2 2
 
     RL 2 0 2 0 3
 
-  will release thread 2 of resources 0 2 0 3
+  - will release thread 2 of resources 0 2 0 3
 
     *
 
-  will print states of all the data structures (Available, Max, Need, Allocated)
+  - will print states of all the data structures (Available, Max, Need, Allocated)
   
     Run
 
-  will run the threads accordingly using bankers algorithm
+  - will run the threads accordingly using bankers algorithm
 
 ## Authors
 
