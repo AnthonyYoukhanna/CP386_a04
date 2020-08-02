@@ -408,7 +408,7 @@ void commandRun(char *c){
 				pthread_t tid = threads[tnum].tNum;
 				pthread_attr_init(&attr);
 				bool = pthread_create(&tid, &attr, threadRun, &threads[tnum]);
-				sleep(5);
+				//sleep(5);
 				pthread_join(tid, NULL);
 
 				if (bool == 0){
