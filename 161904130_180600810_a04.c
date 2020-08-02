@@ -4,12 +4,13 @@ Wilfrid Laurier University
 
 Franchesco Livado
 Student ID: 161904130
-Github: Franchesco Livado
+Github: FranchescoLivado
 
 Anthony Youkhanna
 Student ID: 180600810
-Github: Anthony Youkhanna
+Github: AnthonyYoukhanna
 
+https://github.com/AnthonyYoukhanna/CP386_a04
 */
 
 #include <stdio.h>
